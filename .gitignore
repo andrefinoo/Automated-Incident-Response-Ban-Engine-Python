@@ -1,0 +1,15 @@
+Set-Content -Encoding UTF8 .gitignore @"
+.idea/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+*.log
+!examples/*.log
+data/
+"@
