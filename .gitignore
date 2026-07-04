@@ -1,4 +1,3 @@
-Set-Content -Encoding UTF8 .gitignore @"
 .idea/
 __pycache__/
 *.py[cod]
@@ -12,4 +11,3 @@ htmlcov/
 *.log
 !examples/*.log
 data/
-"@
