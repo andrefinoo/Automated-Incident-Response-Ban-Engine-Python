@@ -35,7 +35,7 @@ Abbiamo accettato:
 
 Abbiamo considerato le risposte dell'IA come materiale di partenza.
 
-Dovremmo modificare:
+Abbiamo considerato da modificare o adattare:
 
 - il testo della documentazione;
 - le descrizioni del devlog, per fare in modo che raccontino quello che abbiamo fatto;
