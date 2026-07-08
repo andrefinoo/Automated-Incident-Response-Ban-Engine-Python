@@ -81,3 +81,88 @@ Prima del commit, il gruppo controllerà che:
 - il testo inserito in `docs/uso-ia.md` rappresenti davvero l'uso fatto dell'IA;
 - scrittura del devlog con le attività effettivamente svolte;
 - eventuale codice suggerito sia compreso e testato;
+
+---
+
+## Aggiornamento sessione — 08/07/2026
+
+### Attività svolte con il supporto dell'IA
+
+Durante questa sessione abbiamo usato ChatGPT per proseguire con la **Fase 2** del progetto, cioè lo sviluppo del parser dei log SSH.
+
+In particolare, abbiamo chiesto supporto per:
+
+- ripassare gli obiettivi della Fase 2 prima di iniziare a scrivere codice;
+- definire la responsabilità della classe `SSHLogParser`;
+- individuare i principali pattern di log SSH da riconoscere;
+- preparare una possibile implementazione di `src/ban_engine/parser.py`;
+- preparare i test automatici in `tests/test_parser.py`;
+- creare un file di esempio `examples/auth.log`;
+- aggiornare questo documento per dichiarare l’uso dell’IA nella fase del parser.
+
+### Come abbiamo usato l'IA
+
+L'IA è stata usata come supporto tecnico e didattico.
+
+Prima di scrivere il codice, abbiamo chiesto di chiarire cosa dovesse fare il parser e quali casi dovesse gestire. Questo ci ha aiutato a non partire subito con una soluzione troppo grande o difficile da controllare.
+
+Successivamente abbiamo usato l'IA per ottenere una bozza di codice per `SSHLogParser` e una bozza di test. Il codice è stato trattato come punto di partenza: prima di considerarlo valido, deve essere letto, compreso, inserito nel progetto e verificato con `pytest`.
+
+Abbiamo aggiornato il parser per gestire log SSH realistici con prefisso numerico opzionale, come `[01]`, e per riconoscere anche i tentativi falliti tramite `Failed publickey`.
+
+Le righe di login riuscito o di semplice connessione/disconnessione vengono ignorate.
+
+### Cosa abbiamo accettato
+
+Abbiamo accettato:
+
+- l’idea di creare una classe `SSHLogParser` dedicata al parsing dei log SSH;
+- la scelta di far restituire al parser un oggetto `LoginAttempt` quando una riga rappresenta un tentativo fallito;
+- la scelta di restituire `None` quando una riga non è pertinente;
+- l’uso di regex per riconoscere righe come `Failed password` e `Invalid user`;
+- l’aggiunta del metodo `parse_file()` per leggere un file riga per riga;
+- la creazione di `tests/test_parser.py` per verificare i casi principali;
+- l’aggiunta di `examples/auth.log` come file utile per test e demo;
+- l’aggiornamento del devlog con una descrizione della Fase 2.
+
+### Cosa abbiamo modificato o adattato
+
+Abbiamo considerato da modificare o adattare:
+
+- i pattern regex, se durante i test risultano troppo rigidi o non coprono bene i log di esempio;
+- la gestione del timestamp, perché i log SSH non includono l’anno;
+- il contenuto di `examples/auth.log`, in base ai casi che vorremo mostrare durante la demo;
+- il testo del devlog, per renderlo coerente con quello che è stato effettivamente fatto dal gruppo;
+
+### Cosa abbiamo rifiutato o non applicato
+
+Non abbiamo accettato:
+
+- la creazione di un parser troppo generico per qualsiasi formato di log;
+- l’aggiunta di librerie esterne non necessarie;
+- una gestione troppo complessa dei timestamp;
+- codice non verificato con i test.
+
+### Codice generato o suggerito
+
+In questa sessione l'IA ha suggerito una possibile implementazione per:
+
+- `src/ban_engine/parser.py`;
+- `tests/test_parser.py`;
+- `examples/auth.log`.
+
+Il parser proposto riconosce tentativi falliti tramite regex e crea oggetti `LoginAttempt`.
+
+I test proposti verificano:
+
+- righe `Failed password` con utente esistente;
+- righe `Failed password for invalid user`;
+- righe `Invalid user`;
+- righe non pertinenti;
+- IP non validi;
+- lettura di più righe da file tramite `parse_file()`.
+
+Questa parte deve essere verificata dal gruppo con:
+
+```bash
+python -m pytest -q

@@ -56,3 +56,4 @@ Le dipendenze del progetto sono indicate in:
 
 ```bash
 requirements.txt
+```

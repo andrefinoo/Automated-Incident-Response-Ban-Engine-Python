@@ -65,7 +65,38 @@ In questo modo possiamo lanciare i test dalla root del progetto con:
 python -m pytest -q 
 ```
 
-### Settimana 2 — [da compilare]
+### Settimana 2 — 08/07/2026
+
+Oggi abbiamo iniziato la **Fase 2** del progetto, dedicata al parser dei log SSH.
+
+Dopo aver completato i modelli dati, abbiamo lavorato su `src/ban_engine/parser.py`, creando la classe `SSHLogParser`. Questa classe ha il compito di leggere le righe di un file di log SSH e riconoscere solo quelle che rappresentano tentativi di login falliti.
+
+Abbiamo deciso di partire da tre casi principali:
+
+- `Failed password for root from ...`;
+- `Failed password for invalid user ... from ...`;
+- `Invalid user ... from ...`.
+
+Per riconoscere queste righe abbiamo usato espressioni regolari, mantenendole abbastanza semplici e leggibili. L’obiettivo non era creare subito un parser universale per qualsiasi formato di log, ma coprire bene i casi utili per la demo e per l’MVP.
+
+Quando una riga viene riconosciuta, il parser restituisce un oggetto `LoginAttempt`, già definito in `models.py`. In questo modo il parser non restituisce dizionari o stringhe sparse, ma un modello dati coerente con il resto del progetto.
+
+Abbiamo aggiunto anche il metodo `parse_file()`, che legge un file riga per riga usando `Path` e restituisce solo i tentativi falliti trovati. Le righe non pertinenti vengono ignorate senza far bloccare il programma.
+
+Un aspetto da gestire è stato il timestamp dei log SSH. I log classici contengono mese, giorno e ora, ma non l’anno. Per ora abbiamo scelto una soluzione semplice: aggiungere l’anno corrente durante il parsing. Se il timestamp non è convertibile, viene usato un fallback con `datetime.now()`. Questa scelta è temporanea ma spiegabile, e potrà essere documentata meglio nel manuale tecnico.
+
+Abbiamo poi creato `tests/test_parser.py`, con test dedicati al parser. I test controllano che:
+
+- una riga `Failed password` con utente esistente venga riconosciuta;
+- una riga `Failed password for invalid user` venga riconosciuta;
+- una riga `Invalid user` venga riconosciuta;
+- una riga non pertinente venga ignorata;
+- un IP non valido produca errore;
+- `parse_file()` restituisca solo i tentativi falliti presenti nel file.
+
+Infine abbiamo aggiunto `examples/auth.log`, un file di esempio utile sia per i test sia per la futura demo orale in modalità `dry-run`.
+
+Questa fase ci ha permesso di collegare il primo modello dati (`LoginAttempt`) a una funzionalità reale del progetto. Il prossimo passo sarà iniziare a lavorare sull’engine, cioè sulla parte che raggruppa i tentativi per IP, applica soglia e finestra temporale, controlla la whitelist e decide quando produrre una `BanDecision`.
 
 ### Settimana 3 — [da compilare]
 
