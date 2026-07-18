@@ -4,7 +4,6 @@ from .base import FirewallBackend
 
 class LinuxIptablesBackend(FirewallBackend):
 
-
    def block_ip(self, ip: str) -> None:
        command = [
            "iptables",
@@ -16,9 +15,7 @@ class LinuxIptablesBackend(FirewallBackend):
            "DROP",
        ]
 
-
        subprocess.run(command, check=True)
-
 
    def unblock_ip(self, ip: str) -> None:
        command = [
@@ -31,9 +28,7 @@ class LinuxIptablesBackend(FirewallBackend):
            "DROP",
        ]
 
-
        subprocess.run(command, check=True)
-
 
    def is_blocked(self, ip: str) -> bool:
        command = [
@@ -46,12 +41,10 @@ class LinuxIptablesBackend(FirewallBackend):
            "DROP",
        ]
 
-
        result = subprocess.run(
            command,
            check=False,
            capture_output=True,
        )
-
 
        return result.returncode == 0

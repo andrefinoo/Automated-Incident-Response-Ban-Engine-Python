@@ -4,7 +4,6 @@ from .base import FirewallBackend
 
 class WindowsFirewallBackend(FirewallBackend):
 
-
    def block_ip(self, ip: str) -> None:
        rule_name = f"BanEngine-{ip}"
 
@@ -24,10 +23,8 @@ class WindowsFirewallBackend(FirewallBackend):
            check=True,
        )
 
-
    def unblock_ip(self, ip: str) -> None:
        rule_name = f"BanEngine-{ip}"
-
 
        subprocess.run(
            [
@@ -41,10 +38,8 @@ class WindowsFirewallBackend(FirewallBackend):
            check=True,
        )
 
-
    def is_blocked(self, ip: str) -> bool:
        rule_name = f"BanEngine-{ip}"
-
 
        result = subprocess.run(
            [
@@ -59,6 +54,5 @@ class WindowsFirewallBackend(FirewallBackend):
            capture_output=True,
            text=True,
        )
-
 
        return result.returncode == 0 and rule_name in result.stdout
