@@ -21,7 +21,7 @@ Quando un IP supera la soglia configurata, il motore produce una decisione di ba
 ## Membri del gruppo
 
 - Andrea Finocchielli — GitHub: `andrefinoo`
-- Alessio Ordazzo — GitHub: da indicare
+- Alessio Ordazzo — GitHub: `alessioradazzo-ui`
 
 Corso: **Programmazione Python — Cybersecurity Specialist**
 
