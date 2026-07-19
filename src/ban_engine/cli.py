@@ -2,8 +2,7 @@ import argparse
 import subprocess
 import sys
 from pathlib import Path
-from .config import Ap
-pConfig, load_config
+from .config import AppConfig, load_config
 from .engine import IncidentResponseEngine
 from .firewall import (
     DryRunFirewallBackend,
