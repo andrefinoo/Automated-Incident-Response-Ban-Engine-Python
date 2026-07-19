@@ -1,168 +1,355 @@
-## Aggiornamento sessione — 04/07/2026
+# Uso dell'intelligenza artificiale
 
-### Attività svolte con il supporto dell'IA
+## 1. Premessa
 
-Durante questa sessione abbiamo usato ChatGPT come supporto operativo per avviare il progetto in modo ordinato.
+Durante il progetto abbiamo usato strumenti di intelligenza artificiale come assistenti. L'IA non è integrata nel programma e non prende decisioni durante l'analisi dei log: il Ban Engine usa soltanto regole, regex, configurazione e codice Python deterministico.
 
-In particolare, abbiamo chiesto supporto per:
+Gli strumenti utilizzati sono stati:
 
-- verificare la presenza dei file di progetto e del riferimento al repository GitHub;
-- confermare la gerarchia dei materiali da seguire;
-- iniziare la compilazione del file `docs/uso-ia.md`;
-- preparare una prima bozza del `docs/devlog.md`;
-- preparare i comandi Git per configurare correttamente gli utenti locali collegati al repository;
-- individuare il primo blocco tecnico da sviluppare, cioè i modelli dati `LoginAttempt` e `BanDecision`.
+- **Gemini**, soprattutto nella fase iniziale di proposta e brainstorming;
+- **ChatGPT**, per analisi dei requisiti, confronto tra soluzioni, debugging, test e revisione della documentazione.
 
-### Come abbiamo usato l'IA
+PyCharm, Git e pytest sono stati gli strumenti con cui abbiamo verificato il lavoro, ma non sono strumenti di IA.
 
-L'IA è stata usata come tutor e supporto alla pianificazione, non come risolutore automatico del progetto.
+Le proposte dell'IA non sono state considerate corrette automaticamente. Il criterio seguito è stato:
 
-Le risposte ricevute sono state usate per chiarire il flusso di lavoro e per trasformare i requisiti della consegna in attività più concrete. In questa fase l'obiettivo non era produrre subito tutto il codice, ma capire come procedere senza creare una struttura troppo complessa.
+1. leggere il suggerimento;
+2. confrontarlo con consegna, appunti e codice esistente;
+3. adattarlo alla struttura reale;
+4. eseguire test o prove controllate;
+5. mantenere solo ciò che sappiamo realmente.
 
-Abbiamo usato l'IA anche per ottenere bozze iniziali di documentazione. Queste bozze non vengono considerate definitive: devono ancora essere riviste, adattate e approvate dal gruppo prima di essere inserite nel repository.
+## 2. Analisi della consegna e pianificazione
 
-### Cosa abbiamo accettato
+### Cosa abbiamo chiesto
 
-Abbiamo accettato:
+- riassumere i requisiti del progetto;
+- distinguere requisiti obbligatori e miglioramenti;
+- trasformare la consegna in una checklist;
+- verificare che l'idea fosse abbastanza concreta;
+- proporre un ordine di sviluppo.
 
-- l'idea di procedere per fasi, partendo dalla struttura del progetto e poi dai modelli dati;
-- l'impostazione del file `docs/uso-ia.md` con sezioni dedicate a richieste, output, parti accettate, parti modificate e parti rifiutate;
-- una bozza di devlog, da rivedere prima del commit;
-- i comandi Git per configurare `user.name` e `user.email` sui computer dei membri del gruppo;
-- il suggerimento di iniziare dai modelli dati perché sono una base comune per parser, engine, persistenza e test.
+### Suggerimenti ricevuti
 
-### Cosa abbiamo modificato
+L'IA ha suggerito di separare:
 
-Abbiamo considerato le risposte dell'IA come materiale di partenza.
+- modelli;
+- parser;
+- motore decisionale;
+- backend firewall;
+- configurazione;
+- persistenza;
+- CLI;
+- test e documentazione.
 
-Abbiamo considerato da modificare o adattare:
-
-- il testo della documentazione;
-- le descrizioni del devlog, per fare in modo che raccontino quello che abbiamo fatto;
-- eventuali nomi, esempi o dettagli tecnici non perfettamente coerenti con il repository;
-- il codice proposto, se durante l'implementazione risulta troppo complesso o non allineato al livello delle lezioni.
-
-### Cosa abbiamo rifiutato o non applicato
-
-Non abbiamo accettato:
-
-- la generazione completa dell'intero progetto in un'unica soluzione;
-- l'idea di scrivere codice avanzato non ancora spiegabile dal gruppo;
-- l'uso dell'IA per sostituire la nostra comprensione del progetto;
-- l'inserimento automatico di documentazione non riletta;
-
-### Codice generato o suggerito
-
-In questa sessione l'IA ha suggerito una possibile implementazione iniziale per:
-
-- `src/ban_engine/models.py`;
-- `tests/test_models.py`.
-
-Questa parte non è ancora considerata automaticamente definitiva. Prima di inserirla nel progetto, bisognerà leggerla, capirla, provarla con `pytest` e modificarla dove necessario.
-
-### Impatto reale sul progetto
-
-L'impatto principale dell'IA oggi è stato organizzativo e documentale.
-
-Abbiamo chiarito:
-
-- quali file seguire;
-- come documentare l'uso dell'IA;
-- come scrivere un devlog coerente;
-- come configurare gli utenti Git;
-- quale modulo sviluppare per primo.
-
-Non sono ancora state completate funzionalità operative del motore di ban. Il progetto è ancora nella fase iniziale di setup, documentazione e pianificazione tecnica.
-
-### Verifica da parte del gruppo
-
-Prima del commit, il gruppo controllerà che:
-
-- il testo inserito in `docs/uso-ia.md` rappresenti davvero l'uso fatto dell'IA;
-- scrittura del devlog con le attività effettivamente svolte;
-- eventuale codice suggerito sia compreso e testato;
-
----
-
-## Aggiornamento sessione — 08/07/2026
-
-### Attività svolte con il supporto dell'IA
-
-Durante questa sessione abbiamo usato ChatGPT per proseguire con la **Fase 2** del progetto, cioè lo sviluppo del parser dei log SSH.
-
-In particolare, abbiamo chiesto supporto per:
-
-- ripassare gli obiettivi della Fase 2 prima di iniziare a scrivere codice;
-- definire la responsabilità della classe `SSHLogParser`;
-- individuare i principali pattern di log SSH da riconoscere;
-- preparare una possibile implementazione di `src/ban_engine/parser.py`;
-- preparare i test automatici in `tests/test_parser.py`;
-- creare un file di esempio `examples/auth.log`;
-- aggiornare questo documento per dichiarare l’uso dell’IA nella fase del parser.
-
-### Come abbiamo usato l'IA
-
-L'IA è stata usata come supporto tecnico e didattico.
-
-Prima di scrivere il codice, abbiamo chiesto di chiarire cosa dovesse fare il parser e quali casi dovesse gestire. Questo ci ha aiutato a non partire subito con una soluzione troppo grande o difficile da controllare.
-
-Successivamente abbiamo usato l'IA per ottenere una bozza di codice per `SSHLogParser` e una bozza di test. Il codice è stato trattato come punto di partenza: prima di considerarlo valido, deve essere letto, compreso, inserito nel progetto e verificato con `pytest`.
-
-Abbiamo aggiornato il parser per gestire log SSH realistici con prefisso numerico opzionale, come `[01]`, e per riconoscere anche i tentativi falliti tramite `Failed publickey`.
-
-Le righe di login riuscito o di semplice connessione/disconnessione vengono ignorate.
+Ha inoltre suggerito di completare ogni modulo insieme ai relativi test, invece di scrivere tutto il programma e testarlo soltanto alla fine.
 
 ### Cosa abbiamo accettato
 
-Abbiamo accettato:
+Abbiamo accettato la divisione per responsabilità e l'ordine generale: struttura, modelli, parser, backend, engine, configurazione, stato e documentazione.
 
-- l’idea di creare una classe `SSHLogParser` dedicata al parsing dei log SSH;
-- la scelta di far restituire al parser un oggetto `LoginAttempt` quando una riga rappresenta un tentativo fallito;
-- la scelta di restituire `None` quando una riga non è pertinente;
-- l’uso di regex per riconoscere righe come `Failed password` e `Invalid user`;
-- l’aggiunta del metodo `parse_file()` per leggere un file riga per riga;
-- la creazione di `tests/test_parser.py` per verificare i casi principali;
-- l’aggiunta di `examples/auth.log` come file utile per test e demo;
-- l’aggiornamento del devlog con una descrizione della Fase 2.
+### Cosa abbiamo modificato o rifiutato
 
-### Cosa abbiamo modificato o adattato
+Abbiamo evitato architetture troppo grandi, pattern non richiesti e dipendenze esterne. La checklist è stata usata come guida, non come sostituto delle decisioni del gruppo.
 
-Abbiamo considerato da modificare o adattare:
+### Verifica
 
-- i pattern regex, se durante i test risultano troppo rigidi o non coprono bene i log di esempio;
-- la gestione del timestamp, perché i log SSH non includono l’anno;
-- il contenuto di `examples/auth.log`, in base ai casi che vorremo mostrare durante la demo;
-- il testo del devlog, per renderlo coerente con quello che è stato effettivamente fatto dal gruppo;
+La pianificazione è stata confrontata con la consegna, la proposta approvata, la struttura del repository e la cronologia Git.
 
-### Cosa abbiamo rifiutato o non applicato
+## 3. Progettazione della gerarchia firewall
 
-Non abbiamo accettato:
+### Cosa abbiamo chiesto
 
-- la creazione di un parser troppo generico per qualsiasi formato di log;
-- l’aggiunta di librerie esterne non necessarie;
-- una gestione troppo complessa dei timestamp;
-- codice non verificato con i test.
+- come soddisfare il requisito di ereditarietà in modo significativo;
+- quali metodi inserire nella classe base;
+- come separare il sistema operativo dal motore;
+- come includere una modalità sicura per test e demo.
 
-### Codice generato o suggerito
+### Suggerimenti ricevuti
 
-In questa sessione l'IA ha suggerito una possibile implementazione per:
+Sono stati proposti:
 
-- `src/ban_engine/parser.py`;
-- `tests/test_parser.py`;
-- `examples/auth.log`.
+- `FirewallBackend` come classe astratta;
+- `block_ip()`, `unblock_ip()` e `is_blocked()` come contratto;
+- backend Linux, Windows e dry-run;
+- composizione tra engine e backend;
+- test polimorfici.
 
-Il parser proposto riconosce tentativi falliti tramite regex e crea oggetti `LoginAttempt`.
+### Cosa abbiamo accettato
 
-I test proposti verificano:
+Abbiamo adottato la gerarchia perché ogni implementazione concreta è realmente un backend firewall. Abbiamo mantenuto il dry-run come sottoclasse autonoma.
 
-- righe `Failed password` con utente esistente;
-- righe `Failed password for invalid user`;
-- righe `Invalid user`;
-- righe non pertinenti;
-- IP non validi;
-- lettura di più righe da file tramite `parse_file()`.
+### Cosa abbiamo modificato o rifiutato
 
-Questa parte deve essere verificata dal gruppo con:
+Abbiamo scartato una catena di condizioni sul sistema operativo dentro l'engine e funzioni separate per ogni piattaforma. Abbiamo mantenuto soltanto i metodi necessari al progetto.
 
-```bash
-python -m pytest -q
+### Verifica
+
+La classe base non può essere istanziata; tutte le sottoclassi implementano il contratto; un test usa oggetti differenti attraverso il tipo comune `FirewallBackend`.
+
+## 4. Modelli e validazione degli IP
+
+### Cosa abbiamo chiesto
+
+- quali campi servissero in `LoginAttempt` e `BanDecision`;
+- se usare classi normali, dizionari o dataclass;
+- come validare IPv4 e IPv6;
+- come preparare i dati per JSON.
+
+### Suggerimenti ricevuti
+
+L'IA ha proposto dataclass, `ipaddress.ip_address()` e metodi `to_dict()`.
+
+### Cosa abbiamo accettato
+
+Abbiamo usato dataclass e il modulo standard `ipaddress`. La validazione è centralizzata in `validate_ip()`.
+
+### Cosa abbiamo modificato o rifiutato
+
+Abbiamo mantenuto pochi campi e poche regole, evitando modelli troppo ricchi o librerie di validazione esterne. La regex viene usata per estrarre l'indirizzo dal log, non per dichiararlo valido.
+
+### Verifica
+
+I test coprono IPv4, IPv6, valori errati, username vuota, conteggi non validi e serializzazione.
+
+## 5. Parser dei log SSH
+
+### Cosa abbiamo chiesto
+
+- come riconoscere `Failed password`, `Failed publickey` e `Invalid user`;
+- come estrarre timestamp, username e IP;
+- come gestire righe non pertinenti;
+- quali casi limite aggiungere ai test.
+
+### Suggerimenti ricevuti
+
+L'IA ha mostrato possibili regex e ha consigliato pattern separati invece di una sola espressione molto lunga. Ha proposto di restituire `None` per le righe ignorate.
+
+### Cosa abbiamo accettato
+
+Abbiamo mantenuto pattern distinti, lettura riga per riga e costruzione di `LoginAttempt`.
+
+### Cosa abbiamo modificato o rifiutato
+
+Le regex sono state ridotte ai formati necessari per l'MVP. Non abbiamo accettato un parser universale né pattern non accompagnati da test. Per i timestamp privi di anno è stata adottata una regola semplice e documentata.
+
+### Verifica
+
+Sono state provate righe valide, righe accettate da SSH ma non sospette, IP non validi e file misti.
+
+## 6. Problemi di import e configurazione di pytest
+
+### Problema sottoposto all'IA
+
+Durante i test comparivano errori di import legati alla struttura `src/` e a percorsi che dipendevano dal nome della cartella locale.
+
+### Alternative suggerite
+
+- impostare `PYTHONPATH=src`;
+- installare il package con `pip install -e .`;
+- inserire `src/` nel percorso dei test tramite `conftest.py`.
+
+### Soluzione adottata
+
+Abbiamo usato `tests/conftest.py` durante lo sviluppo e aggiunto l'installazione editable nei requisiti.
+
+### Cosa abbiamo rifiutato
+
+Import come `RepoPython.src...`, perché non rappresentavano il package e cambiavano da una macchina all'altra.
+
+### Verifica
+
+La suite è stata eseguita dalla root con `python -m pytest -q`.
+
+## 7. Backend Linux e Windows
+
+### Cosa abbiamo chiesto
+
+- come costruire comandi `iptables` e `netsh`;
+- se usare stringhe o liste con `subprocess`;
+- quando usare `check=True`;
+- come testare senza privilegi amministrativi.
+
+### Suggerimenti ricevuti
+
+L'IA ha consigliato:
+
+- liste di argomenti;
+- niente `shell=True`;
+- `check=True` per aggiunta e rimozione;
+- `check=False` per il controllo di esistenza;
+- mock di `subprocess.run()`.
+
+### Cosa abbiamo accettato
+
+Queste indicazioni sono state integrate nei backend. Per Windows è stato usato un nome di regola deterministico con prefisso `BanEngine`.
+
+### Cosa abbiamo modificato o rifiutato
+
+I comandi sono stati adattati ai nomi e alla struttura effettiva del progetto. Non abbiamo eseguito comandi firewall reali nei test.
+
+### Verifica
+
+I test controllano la lista completa degli argomenti, i codici di ritorno simulati e l'output del comando Windows.
+
+## 8. Debugging del test polimorfico
+
+### Problema sottoposto all'IA
+
+Il test polimorfico non registrava le chiamate ai mock come previsto quando Linux e Windows venivano patchati contemporaneamente a livello di `subprocess.run()`.
+
+### Analisi ricevuta
+
+I due moduli fanno riferimento allo stesso oggetto `subprocess`. Patch sovrapposte sullo stesso attributo potevano interferire e rendere poco chiaro quale mock ricevesse la chiamata.
+
+### Soluzione adottata
+
+Abbiamo separato gli obiettivi:
+
+- i test dei backend verificano i comandi `subprocess`;
+- il test del polimorfismo verifica la chiamata allo stesso metodo su oggetti concreti diversi;
+- per Linux e Windows usa `patch.object()` sul metodo dell'istanza;
+- il dry-run mantiene il comportamento reale.
+
+### Cosa abbiamo rifiutato
+
+Non abbiamo eliminato il test e non abbiamo ridotto le asserzioni dei test specifici solo per ottenere un risultato verde.
+
+### Verifica
+
+Dopo la modifica, ogni backend viene chiamato una volta e il dry-run registra l'IP nel proprio set.
+
+## 9. IncidentResponseEngine
+
+### Cosa abbiamo chiesto
+
+- come raggruppare gli eventi per IP;
+- come applicare soglia e finestra temporale;
+- dove controllare la whitelist;
+- come evitare blocchi duplicati;
+- quali test fossero indispensabili.
+
+### Suggerimenti ricevuti
+
+Sono state discusse una soluzione semplice con cicli annidati e una finestra scorrevole più efficiente.
+
+### Cosa abbiamo accettato
+
+Abbiamo scelto l'algoritmo più leggibile per l'MVP. Il backend viene interrogato con `is_blocked()` prima della chiamata a `block_ip()`.
+
+### Cosa abbiamo modificato o rifiutato
+
+Non abbiamo introdotto strutture incrementali, concorrenza o ottimizzazioni premature. La logica è stata adattata ai modelli e ai test già presenti.
+
+### Verifica
+
+I test coprono soglia raggiunta, sotto soglia, eventi fuori finestra, whitelist e secondo tentativo di blocco dello stesso IP.
+
+## 10. Configurazione JSON
+
+### Cosa abbiamo chiesto
+
+- come unire valori predefiniti, file JSON e opzioni CLI;
+- quali validazioni eseguire;
+- come segnalare file mancanti e JSON malformato;
+- come gestire la whitelist.
+
+### Suggerimenti ricevuti
+
+L'IA ha proposto una dataclass `AppConfig`, una funzione di caricamento unica e validazioni esplicite campo per campo.
+
+### Cosa abbiamo accettato
+
+Abbiamo adottato valori predefiniti e la precedenza CLI sui valori caricati. Gli IP della whitelist vengono normalizzati con la stessa funzione dei modelli.
+
+### Cosa abbiamo modificato o rifiutato
+
+Non abbiamo usato librerie esterne di schema validation. Il numero dei backend ammessi è limitato alle implementazioni presenti.
+
+### Verifica
+
+I test coprono default, configurazione personalizzata, file mancante, JSON errato e whitelist non valida.
+
+## 11. Persistenza dello storico
+
+### Cosa abbiamo chiesto
+
+- come aggiungere decisioni senza cancellare lo storico;
+- come mantenere un JSON valido;
+- come gestire file e cartelle non esistenti;
+- quali errori non ignorare.
+
+### Suggerimenti ricevuti
+
+È stato suggerito di caricare la lista esistente, estenderla e riscrivere il documento completo. È stata anche proposta la creazione automatica delle cartelle padre.
+
+### Cosa abbiamo accettato
+
+La soluzione mantiene un unico array JSON leggibile e non sovrascrive semanticamente gli elementi precedenti.
+
+### Cosa abbiamo modificato o rifiutato
+
+Non abbiamo adottato un database, locking o scrittura concorrente perché fuori dallo scopo dell'MVP. Non abbiamo usato append testuale, che produrrebbe JSON non valido.
+
+### Verifica
+
+I test coprono file assente, prima scrittura, seconda scrittura e file corrotto.
+
+## 12. CLI e flusso completo
+
+### Cosa abbiamo chiesto
+
+- come organizzare gli argomenti con `argparse`;
+- come restituire exit code coerenti;
+- come stampare un report breve;
+- come rendere il dry-run la scelta più sicura.
+
+### Suggerimenti ricevuti
+
+Sono stati proposti un entry point tramite `__main__.py`, override per soglia e finestra, gestione degli errori attesi e un riepilogo finale.
+
+### Cosa abbiamo accettato
+
+La CLI coordina i moduli ma non contiene la loro logica interna. `--dry-run` può attivare la simulazione e non disattivarla.
+
+### Cosa abbiamo modificato o rifiutato
+
+Non è stato aggiunto il rilevamento automatico del sistema operativo. Il backend viene scelto dal file JSON, scelta più semplice e prevedibile per la demo.
+
+### Verifica
+
+Il test CLI esegue un flusso dry-run completo con un file temporaneo e verifica la creazione dello storico. Un secondo test controlla l'errore per log mancante.
+
+## 13. Suggerimenti rifiutati o ridotti durante il progetto
+
+Nel complesso abbiamo evitato:
+
+- framework o librerie non necessarie;
+- un database per un semplice storico JSON;
+- rilevamento e modifica automatica del firewall durante i test;
+- `shell=True` nei comandi;
+- regex uniche troppo complesse;
+- ereditarietà tra classi che non hanno una relazione “è un”;
+- condizioni sul sistema operativo dentro l'engine;
+- ottimizzazioni premature dell'algoritmo temporale;
+- test che richiedessero amministratore;
+
+## 14. Impatto dell'interazione umano-IA
+
+L'IA ha accelerato il confronto tra alternative e ha aiutato a individuare casi limite prima di arrivare alla prova manuale. Il contributo più utile non è stato produrre molte righe di codice, ma rendere espliciti problemi che altrimenti sarebbero rimasti impliciti:
+
+- separazione tra decisione e mitigazione;
+- differenza tra ereditarietà e composizione;
+- import indipendenti dalla cartella locale;
+- test dei comandi senza esecuzione reale;
+- rischio di sovrascrivere lo storico;
+- differenza tra stato persistente e stato del firewall;
+- precedenza tra configurazione e CLI.
+
+Le decisioni finali, i commit, l'esecuzione dei test e l'eventuale uso dei backend reali restano responsabilità del gruppo.
+
+## 16. Dichiarazione finale
+
+Dichiariamo di aver usato Gemini e ChatGPT come strumenti di supporto per progettazione, chiarimenti, debugging, generazione di casi di test, revisione e organizzazione della documentazione. I suggerimenti sono stati selezionati e adattati; le parti non coerenti con requisiti, coerenza del progetto o codice reale sono state scartate.
+
+L’IA è stata utilizzata anche come supporto per il layout, la formattazione e l’organizzazione della documentazione. I contenuti, le decisioni tecniche e le informazioni descritte sono stati forniti dal gruppo; l’IA si è limitata a sistemarli e renderli più chiari e ordinati.
